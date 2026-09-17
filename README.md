@@ -29,6 +29,7 @@ Each document is self-contained with **architecture diagrams (Mermaid + ASCII)**
 | 10 | [Horizontal Pod Autoscaling](10-horizontal-pod-autoscaling.md) | HPA, CPU/memory requests & limits, hands-on PHP-Apache test.        |
 | 11 | [VPA & Goldilocks](11-vpa-and-goldilocks.md)                 | Vertical Pod Autoscaler, recommendations, Goldilocks dashboard.     |
 | 12 | [Cluster Autoscaler](12-cluster-autoscaler.md)               | Node-level scaling with Cluster Autoscaler on EKS.                  |
+| 17 | [Karpenter](17-karpenter.md)                                 | Modern node autoscaler — right-sized EC2 in seconds, consolidation. |
 | 13 | [Kubecost](13-kubecost.md)                                   | Cost monitoring with Kubecost on EKS.                               |
 | 14 | [Prometheus & Grafana](14-prometheus-and-grafana.md)         | Production monitoring stack with persistent EBS storage.            |
 
@@ -59,10 +60,12 @@ graph LR
     G --> H1["10 HPA"]
     G --> H2["11 VPA & Goldilocks"]
     G --> H3["12 Cluster Autoscaler"]
+    G --> H4["17 Karpenter"]
 
     H1 --> I["13 Kubecost"]
     H2 --> I
     H3 --> I
+    H4 --> I
     I --> J["14 Prometheus & Grafana"]
     J --> K["15 EKS Auto Mode"]
     K --> L["16 Istio Service Mesh"]

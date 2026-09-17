@@ -167,3 +167,5 @@ graph LR
 ## Next Steps
 
 Track and optimize your cluster spend — continue with [13-kubecost.md](13-kubecost.md).
+
+> 💡 **Modern alternative:** Karpenter is the recommended successor to Cluster Autoscaler — it provisions right-sized EC2 nodes in seconds and consolidates automatically. See [17-karpenter.md](17-karpenter.md).
