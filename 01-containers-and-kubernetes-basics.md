@@ -47,34 +47,11 @@ Similarly, a **container** packages an application with its necessary files, so 
 
 Container architecture has multiple components that work together, just like a well-organized kitchen operates to serve meals.
 
-```
-┌──────────────────────────────────────────────────────────────┐
-│                                                              │
-│   CONTAINER ARCHITECTURE — "KITCHEN"                          │
-│                                                              │
-│   ┌──────────────────┐        ┌──────────────────────────┐   │
-│   │  Container Image │        │  Container Registry      │   │
-│   │  (Meal Kit)      │  pull  │  (Recipe Shelf / Store)   │   │
-│   │  e.g. nginx      │ ─────▶ │  Docker Hub, ECR         │   │
-│   └──────────────────┘        └──────────────────────────┘   │
-│            │                                                 │
-│            │ run                                             │
-│            ▼                                                 │
-│   ┌──────────────────┐                                       │
-│   │ Container Runtime│◀──── runs & manages containers        │
-│   │ (Kitchen Stove)  │                                       │
-│   │ Docker/containerd│                                       │
-│   └──────────────────┘                                       │
-│            │                                                 │
-│            ▼                                                 │
-│   ┌──────────────────┐       ┌──────────────────────────┐   │
-│   │ Container        │  OR   │ Container Orchestrator    │   │
-│   │ (single)         │  △    │ (Head Chef)              │   │
-│   └──────────────────┘  │    │ Kubernetes, Docker Swarm  │   │
-│                         └────│ EKS, ECS                 │   │
-│                              └──────────────────────────┘   │
-└──────────────────────────────────────────────────────────────┘
-```
+![Containerized applications running on a container host](https://www.docker.com/wp-content/uploads/2021/11/docker-containerized-appliction-blue-border_2.png)
+
+> Source: [Docker — What is a Container?](https://www.docker.com/resources/what-container/)
+
+The container image is the **immutable template**, pulled from a **registry** (Docker Hub / ECR). The **runtime** (containerd / Docker) runs it, and an **orchestrator** (Kubernetes / Docker Swarm) manages many containers across hosts.
 
 ### 1. Container Runtime → Kitchen Stove (Cooking Equipment)
 
@@ -147,30 +124,14 @@ Kubernetes has two main parts:
 1. **Control Plane** – Manages the cluster (`brain`)
 2. **Worker Nodes** – Run the actual applications
 
-```
-┌───────────────────────────────────────────────────────────────┐
-│                    KUBERNETES CLUSTER                          │
-│                                                               │
-│  ┌────────────  CONTROL PLANE ────────────┐                   │
-│  │  API Server ── Controller Manager      │                   │
-│  │       │        Scheduler               │                   │
-│  │       └── etcd (key-value store)       │                   │
-│  │        Cloud Controller Manager        │                   │
-│  └──────────────┬─────────────────────────┘  AWS manages     │
-│                 │ API (HTTPS)                                 │
-│                 ▼                                             │
-│  ┌────────────────────  WORKER NODES ─────────────────────┐   │
-│  │  ┌────────────┐   ┌────────────┐   ┌────────────┐      │   │
-│  │  │ Kubelet    │   │ Kubelet    │   │ Kubelet    │      │   │
-│  │  │ Kube-proxy │   │ Kube-proxy │   │ Kube-proxy │      │   │
-│  │  │ Runtime    │   │ Runtime    │   │ Runtime    │      │   │
-│  │  │ ┌──┐ ┌──┐ │   │ ┌──┐ ┌──┐ │   │ ┌──┐ ┌──┐ │      │   │
-│  │  │ │P1│ │P2│ │   │ │P3│ │P4│ │   │ │P5│ │P6│ │  Pods  │   │
-│  │  │ └──┘ └──┘ │   │ └──┘ └──┘ │   │ └──┘ └──┘ │      │   │
-│  │  └────────────┘   └────────────┘   └────────────┘      │   │
-│  └─────────────────────────────────────────────────────────┘   │
-└───────────────────────────────────────────────────────────────┘
-```
+![Kubernetes cluster components — control plane and worker nodes](https://kubernetes.io/images/docs/components-of-kubernetes.svg)
+
+> Source: [Kubernetes — Cluster Architecture](https://kubernetes.io/docs/concepts/architecture/)
+
+| Part          | What it does                                            | Managed by        |
+|---------------|---------------------------------------------------------|-------------------|
+| **Control Plane** | API server, scheduler, controller-manager, etcd        | **AWS** (managed) |
+| **Worker Nodes** | Kubelet, kube-proxy, container runtime, your pods      | **You** (node pool) |
 
 ---
 

@@ -18,22 +18,21 @@
 
 ## What is Helm and Charts?
 
-```
-┌───────────────────────────────────────────────────────────────┐
-│                      HOW HELM WORKS                           │
-│                                                               │
-│  ┌────────────┐   helm install   ┌──────────────────────┐    │
-│  │ Helm Client │ ───────────────▶ │ Kubernetes Cluster   │    │
-│  │             │                  │ (EKS)               │    │
-│  └─────┬───────┘                  │                      │    │
-│        │                         │  ┌────────────────┐  │    │
-│        ▼                         │  │ Deployment     │  │    │
-│  ┌────────────┐   charts pulled  │  │ Service        │  │    │
-│  │ Chart Repo  │ ───────────────▶│  │ ConfigMap      │  │    │
-│  │ ArtifactHub │   + values      │  │ ...            │  │    │
-│  │ Bitnami     │                 │  └────────────────┘  │    │
-│  └────────────┘                  └──────────────────────┘    │
-└───────────────────────────────────────────────────────────────┘
+```mermaid
+flowchart LR
+    subgraph LOCAL["Your Machine"]
+        CLI["Helm Client (CLI)"]
+        LIB["Helm Library"]
+    end
+
+    REPO["Chart Repository<br/>(Artifact Hub / Bitnami / OCI)"]
+
+    CLI -->|"search / pull"| REPO
+    REPO -->|"chart (tgz) + values.yaml"| CLI
+    CLI --> LIB
+    LIB -->|"helm install / upgrade / rollback"| API["Kubernetes API Server (EKS)"]
+    API --> REL["Release<br/>(charts + config → running app)"]
+    API --> SEC["Release history in Secrets"]
 ```
 
 ## Key Components of Helm
