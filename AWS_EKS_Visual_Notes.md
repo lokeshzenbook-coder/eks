@@ -98,6 +98,53 @@ flowchart LR
     K --> R53["🧭 Route 53"]
 ```
 
+#### 📄 Example: A minimal EKS cluster (eksctl)
+
+```yaml
+# cluster-config.yaml — run with: eksctl create cluster -f cluster-config.yaml
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+metadata:
+  name: my-eks-cluster
+  region: ap-south-1
+  version: "1.31"
+availabilityZones:
+  - ap-south-1a
+  - ap-south-1b
+  - ap-south-1c
+
+iam:
+  withOIDC: true                 # required for IRSA (Module 14)
+
+cloudwatch:
+  clusterLogging:                # sends control-plane logs to CloudWatch
+    enableTypes:
+      - api
+      - audit
+      - authenticator
+      - controllerManager
+      - scheduler
+
+managedNodeGroups:               # your side of the line = the data plane
+  - name: ng-default
+    instanceType: t3.small
+    desiredCapacity: 2
+    minSize: 2
+    maxSize: 4
+    managed: true
+```
+
+```bash
+eksctl create cluster -f cluster-config.yaml
+
+# or straight AWS CLI
+aws eks create-cluster \
+  --name my-eks-cluster \
+  --version 1.31 \
+  --role-arn arn:aws:iam::123456789012:role/AmazonEKSClusterRole \
+  --resources-vpc-config subnetIds=subnet-aaa,subnet-bbb,subnet-ccc,endpointPublicAccess=true
+```
+
 ---
 
 ## 2. 🎛️ Control Plane Deep Dive
