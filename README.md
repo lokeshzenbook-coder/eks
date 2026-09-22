@@ -6,6 +6,17 @@ Each document is self-contained with **architecture diagrams (Mermaid + ASCII)**
 
 ---
 
+## 📖 Complete Course Companion
+
+> A single, visually-organized study guide built from the full **KodeKloud AWS EKS (v1.0)** course — all 18 modules, Mermaid architecture diagrams, comparison tables, and collapsible sections.
+
+| Resource | Description |
+|----------|-------------|
+| [AWS_EKS_Visual_Notes.md](AWS_EKS_Visual_Notes.md) | Interactive visual notes: Control plane, VPC CNI/IPv6, Storage, Secrets, Ingress/Gateway/Lattice, Fargate/Node Groups/Karpenter, Pod IAM, Observability, Upgrades, Add-ons. |
+| [AWS-EKS v.1.0.pdf](<AWS-EKS v.1.0.pdf>) | Original source slides (679 pages) from the course. |
+
+---
+
 ## 📚 Table of Contents
 
 ### Fundamentals
